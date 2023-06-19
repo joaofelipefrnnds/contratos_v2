@@ -1,0 +1,44 @@
+{% extends 'contrato/base.html' %}
+{% load static %}
+{% block content  %}
+     
+     <div style="height:600px; border: 1px solid #D7ECCD; border-radius: 10px; padding:25px; margin-top: 20px" class="container">
+      <div>
+        <a href="{% url 'cadastro_contrato' %}"><button class="btn btn-success"><i class="fas fa-plus"></i> Cadastrar</button></a>
+      </div>
+      <h1>Consulta de Contratos</h1> 
+      <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">CONTRATO</th>
+            <th scope="col">PROCESSO</th>
+            <th scope="col">EMPENHO</th>
+            <th scope="col">OBJETO</th>
+            <th scope="col">FISCAL</th>
+            <th scope="col">DATA DO REGISTRO</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if contratos %}
+          {% for contrato in contratos %}
+          <tr class="lista">
+            <th>{{ contrato.id }}</th>
+            <th>{{ contrato.numero_contrato }}</th>
+            <th>{{ contrato.numero_processo }}</th>
+            <th>{{ contrato.objeto }}</th>
+            <th>{{ contrato.fk_empresa }}</th>
+            <th>{{ contrato.fk_fiscal }}</th>
+            <th>{{ contrato.cadastrado_em }}</th>
+          </tr>
+          {% endfor %}
+          {% else  %}
+          <h5>Sem registro de dados</h5>
+          {% endif %}
+        </tbody>
+      </table>
+      
+     
+
+    </div>
+{% endblock  %}
