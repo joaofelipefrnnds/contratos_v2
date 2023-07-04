@@ -44,7 +44,7 @@ class CadastroUsuarioForms(forms.Form):
             )
         )
         last_name = forms.CharField(
-            label="Ultimo ano",
+            label="Último Nome",
             required=True,
             max_length=100,
               widget=forms.TextInput(

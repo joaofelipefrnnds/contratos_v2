@@ -92,8 +92,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'contrato',
         'USER': 'postgres',
-        'PASSWORD': 'joao1711',
-        'HOST': 'localhost'
+        'PASSWORD': 'dpe123',
+        'HOST': '127.0.0.1'
     }
 }
 
@@ -153,3 +153,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'Bootstrap4'
 
 USE_DJANGO_JQUERY = True
+
+DATE_FORMAT = "d-m-Y"

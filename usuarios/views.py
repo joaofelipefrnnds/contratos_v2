@@ -53,7 +53,7 @@ def cadastro_usuario(request):
             )
             usuario.save()
             messages.success(request, "Cadastro realizado com sucesso!")
-            return redirect('login')
+            return redirect('cadastro_usuario')
     return render(request, "usuarios/cadastro_usuario.html", {"form": form})
 
 def logout(request):

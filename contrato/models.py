@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
+import os
+
+def directory_path(instance, filename):
+    return os.path.join('arquivos/'+instance.__class__.__name__+"/", filename)
 
 class Empresa(models.Model):
     ESTADO_CHOICES = (
@@ -32,7 +36,7 @@ class Empresa(models.Model):
         ("DF", "Distrito Federal"),
     )
 
-    cnpj_empresa = models.CharField(max_length=11, null=False, blank=False)
+    cnpj_empresa = models.CharField(max_length=14, null=False, blank=False)
     nome_empresa = models.CharField(max_length=255,null=False, blank=False)
     email_empresa = models.EmailField(null=False, blank=False)
     telefone_empresa = models.CharField(max_length=11, null=False, blank=False)
@@ -47,9 +51,9 @@ class Contrato(models.Model):
     numero_empenho = models.CharField(max_length=11, null=False, blank=False)
     objeto = models.CharField(max_length=255, null=False, blank=False)
     fk_empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
-    fk_fiscal = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    fk_fiscal = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     cadastrado_em = models.DateField(default=datetime.now, blank=True, null=True)
-    #anx_empenho = models.FileField(upload_to="contrato/nota_de_empenho", null=True)
+    #anx_empenho = models.FileField(upload_to=directory_path, null=True)
     def __str__(self):
         return self.numero_processo
     
@@ -59,9 +63,15 @@ class NovoEvento(models.Model):
     valor_aditivo = models.CharField(max_length=255, null=False, blank=False)
     objeto_aditivo = models.CharField(max_length=255, null=False, blank=False)
     fk_contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE)
+    #anexo=models.FileField(upload_to=directory_path, null=True, blank=True)
     assinado_em = models.DateField()
     cadastrado_em = models.DateField(default=datetime.now, blank=True, null=True)
-    #anx_empenho = models.FileField(upload_to="contrato/nota_de_empenho", null=True)
+    anx_empenho = models.FileField(upload_to=directory_path, null=True)
     def __str__(self):
         return self.numero_aditivo
 
+class Anexo(models.Model):
+    titulo = models.FileField(upload_to=directory_path, null=True)
+    fk_contrato = models.ForeignKey(NovoEvento, on_delete=models.CASCADE, null=True, blank=True)
+    def __str__(self):
+        return self.titulo

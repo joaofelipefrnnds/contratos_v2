@@ -1,0 +1,50 @@
+{% extends 'contrato/base.html' %} {% load static %} {% block content %}
+
+<div
+  style="
+    height: 600px;
+    border: 1px solid #d7eccd;
+    border-radius: 10px;
+    padding: 25px;
+    margin-top: 20px;
+  "
+  class="container"
+>
+  <div>
+    <a href="{% url 'cadastro_evento' %}"
+      ><button class="btn btn-success">
+        <i class="fas fa-plus"></i> Cadastrar
+      </button></a
+    >
+  </div>
+  <h1>Consulta de Eventos</h1>
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">NÚMERO ADITIVO</th>
+        <th scope="col">VALOR ADITIVO</th>
+        <th scope="col">OBJETO</th>
+        <th scope="col">CONTRATO</th>
+        <th scope="col">ASSINADO EM</th>
+        <th scope="col">DATA DO REGISTRO</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if eventos %} {% for evento in eventos %}
+      <tr class="lista">
+        <th>{{ .id }}</th>
+        <th>{{ evento.numero_aditivo }}</th>
+        <th>{{ evento.valor_aditivo }}</th>
+        <th>{{ evento.objeto_aditivo }}</th>
+        <th>{{ evento.fk_contrato }}</th>
+        <th>{{ evento.assinado_em }}</th>
+        <th>{{ evento.cadastrado_em }}</th>
+      </tr>
+      {% endfor %} {% else %}
+      <h5>Sem registro de dados</h5>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

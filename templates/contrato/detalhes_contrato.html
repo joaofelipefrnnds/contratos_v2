@@ -1,0 +1,43 @@
+{% extends 'contrato/base.html' %} {% load static %} {% block content %}
+<div
+  style="
+    border: 1px solid #d7eccd;
+    border-radius: 10px;
+    padding: 25px;
+    margin-top: 20px;
+  "
+  class="container"
+>
+  <h1>Detalhes do Contrato</h1>
+
+  <div class="card p-2 mb-3">
+    <p><strong>Contrato: </strong>{{ contrato.numero_contrato }}</p>
+    <p><strong>Processo:</strong> {{ contrato.numero_processo }}</p>
+    <p><strong>Empenho:</strong> {{ contrato.numero_empenho }}</p>
+    <p><strong>Objeto:</strong> {{ contrato.objeto }}</p>
+    <p><strong>Empresa:</strong> {{ contrato.fk_empresa }}</p>
+    <p><strong>Fiscal:</strong> {{ contrato.fk_fiscal }}</p>
+    <span
+      ><a class="btn btn-primary" href="/update_contrato/{{contrato.id}}"
+        >Atualizar</a
+      ></span
+    >
+  </div>
+
+  <div>
+    <h2>Eventos</h2>
+    <ol class="list-group list-group-numbered mb-2">
+      {% for evento in eventos %}
+      <li class="list-group-item">
+        <p><strong>Número Aditivo:</strong> {{ evento.numero_aditivo }}</p>
+        <p><strong>Valor Aditivo:</strong> {{ evento.valor_aditivo }}</p>
+        <p><strong>Objeto Aditivo:</strong> {{ evento.objeto_aditivo }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+    <a class="btn btn-primary" href="{% url 'cadastro_evento' %}"
+      >Nova Tarefa</a
+    >
+  </div>
+</div>
+{% endblock %}
