@@ -21,14 +21,12 @@ def cadastro_contrato(request):
         }
         return render(request, 'contrato/cadastro_contrato.html', context=context)
     else:
-        form = ContratoForm(request.POST, request.FILES or None)
-        files = request.FILES.getlist('anx_empenho')
+        form = ContratoForm(request.POST)
         if form.is_valid():
-            #for file in files:
-             #   instance = Contrato(files=file)
-              #  instance.save()
             contrato = form.save()
             form = ContratoForm()
+            messages.success(request,'Cadastro realizado')
+            #return redirect('/detalhes_contrato/'+str(contrato.id))
         context = {
         'form': form
             }
@@ -111,9 +109,10 @@ def listagem_empresa(request):
 def detalhes_empresa(request, empresa_id):
     empresa = get_object_or_404(Empresa, pk=empresa_id)
     empresa_detail = {
-        'empresa' : empresa_id
+        'empresa' : empresa
     }
-    return render(request,'contrato/detalhe_empresa.html', empresa_detail)
+    return render(request,'contrato/detalhes_empresa.html', empresa_detail)
+
 
 def detalhes_contrato(request, contrato_id):
     if not request.user.is_authenticated:
@@ -123,7 +122,16 @@ def detalhes_contrato(request, contrato_id):
     eventos = NovoEvento.objects.filter(fk_contrato=contrato).all()
     return render(request,'contrato/detalhes_contrato.html', context={'contrato': contrato, 'eventos': eventos})
 
-#def search_contrato(request):
+
+def detalhes_evento(request, evento_id):
+    if not request.user.is_authenticated:
+        messages.error(request, "Usuário não logado")
+        return redirect('login')
+    evento = get_object_or_404(NovoEvento, pk=evento_id)
+    evento_detail = {
+        'evento' : evento
+    }
+    return render(request,'contrato/detalhes_evento.html', evento_detail)
 
 
 def update_contrato(request, pk):

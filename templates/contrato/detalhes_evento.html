@@ -11,12 +11,9 @@
   <div class="card p-2 mb-3">
     <div class="container mb-0 mt-2">
       <div class="row justify-content-end">
-        <div class="col-11"><h1>Detalhes do Contrato</h1></div>
+        <div class="col-11"><h1>Detalhes do Evento</h1></div>
         <div class="col-1">
-          <a
-            class="text-dark"
-            href="/update_contrato/{{contrato.id}}"
-            title="Editar"
+          <a class="text-dark" href="#" title="Editar"
             ><i class="fa-solid fa-pen"></i
           ></a>
         </div>
@@ -26,27 +23,38 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">Número do Contrato: {{contrato.numero_contrato}}</th>
-          <th scope="col">Número do Processo: {{contrato.numero_processo}}</th>
-          <th scope="col">Número do Empenho: {{contrato.numero_empenho}}</th>
+          <th scope="col">Número Aditivo</th>
+          <th scope="col">Valor Aditivo</th>
+          <th scope="col">Objeto Aditivo</th>
+          <th scope="col">Assinado Em</th>
+          <th scope="col">Cadastrado Em</th>
         </tr>
       </thead>
-      <thead>
+      <tbody>
+        <tr>
+          <th scope="col">{{evento.numero_aditivo}}</th>
+          <th scope="col">{{evento.valor_aditivo}}</th>
+          <th scope="col">{{evento.objeto_aditivo}}</th>
+          <th scope="col">{{evento.assinado_em}}</th>
+          <th scope="col">{{evento.cadastrado_em}}</th>
+        </tr>
+      </tbody>
+      <!--<thead>
         <tr>
           <th scope="col">Objeto: {{contrato.objeto}}</th>
           <th scope="col">Fiscal: {{contrato.fk_fiscal}}</th>
           <th scope="col">Empresa: {{contrato.fk_empresa}}</th>
         </tr>
-      </thead>
+      </thead>-->
     </table>
   </div>
-
+  <!--
   <div>
     <div class="container mb-0 mt-2">
       <div class="row justify-content-end">
         <div class="col-11"><h3>Eventos</h3></div>
         <div class="col-1">
-          <a class="text-dark" href="/cadastro_evento" title="Novo Evento"
+          <a class="text-dark" href="#" title="Novo Evento"
             ><i class="fa-solid fa-plus fa-xl"></i
           ></a>
         </div>
@@ -58,8 +66,6 @@
           <th scope="col">Número Aditivo</th>
           <th scope="col">Valor Aditivo</th>
           <th scope="col">Objeto Aditivo</th>
-          <th scope="col">Cadastrado Em</th>
-          <th scope="col">Visualizar</th>
         </tr>
       </thead>
       {% for evento in eventos %}
@@ -67,13 +73,9 @@
         <th scope="col">{{evento.numero_aditivo}}</th>
         <th scope="col">{{evento.valor_aditivo}}</th>
         <th scope="col">{{evento.objeto_aditivo}}</th>
-        <th scope="col">{{evento.cadastrado_em}}</th>
-        <th scope="col">
-          <a href="/detalhes_evento/{{evento.id}}">Visualizar</a>
-        </th>
       </tbody>
       {% endfor %}
     </table>
   </div>
-</div>
+--></div>
 {% endblock %}

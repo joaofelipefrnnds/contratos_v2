@@ -1,5 +1,5 @@
 from django.urls import path, include
-from contrato.views import index, cadastro_contrato, cadastro_empresa, cadastro_evento, listagem_evento, listagem_empresa, listagem_contrato, detalhes_empresa, detalhes_contrato, update_contrato
+from contrato.views import index, cadastro_contrato, cadastro_empresa, cadastro_evento, listagem_evento, listagem_empresa, listagem_contrato, detalhes_empresa, detalhes_contrato, detalhes_evento, update_contrato
 from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
@@ -13,6 +13,7 @@ urlpatterns = [
     path('listagem_empresa/', listagem_empresa, name='listagem_empresa'),
     path('detalhes_empresa/<int:empresa_id>', detalhes_empresa, name='detalhes_empresa'),
     path('detalhes_contrato/<int:contrato_id>', detalhes_contrato, name='detalhes_contrato'),
+    path('detalhes_evento/<int:evento_id>', detalhes_evento, name='detalhes_evento'),
     path('update_contrato/<int:pk>', update_contrato, name='update_contrato'),
     
 ] + static(settings.MEDIA_URL, documento_root=settings.MEDIA_ROOT)

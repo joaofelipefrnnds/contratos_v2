@@ -49,13 +49,17 @@ class Contrato(models.Model):
     numero_contrato = models.CharField(max_length=11, null=False, blank=False)
     numero_processo = models.CharField(max_length=11, null=False, blank=False)
     numero_empenho = models.CharField(max_length=11, null=False, blank=False)
+    anx_contrato = models.FileField(upload_to=directory_path, null=True)
+    anx_processo = models.FileField(upload_to=directory_path, null=True)
+    anx_empenho = models.FileField(upload_to=directory_path, null=True)
+    anx_portaria = models.FileField(upload_to=directory_path, null=True)
     objeto = models.CharField(max_length=255, null=False, blank=False)
     fk_empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     fk_fiscal = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     cadastrado_em = models.DateField(default=datetime.now, blank=True, null=True)
     #anx_empenho = models.FileField(upload_to=directory_path, null=True)
     def __str__(self):
-        return self.numero_processo
+        return self.numero_contrato
     
 
 class NovoEvento(models.Model):
@@ -63,7 +67,7 @@ class NovoEvento(models.Model):
     valor_aditivo = models.CharField(max_length=255, null=False, blank=False)
     objeto_aditivo = models.CharField(max_length=255, null=False, blank=False)
     fk_contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE)
-    #anexo=models.FileField(upload_to=directory_path, null=True, blank=True)
+    anexo=models.FileField(upload_to=directory_path, null=True, blank=True)
     assinado_em = models.DateField()
     cadastrado_em = models.DateField(default=datetime.now, blank=True, null=True)
     anx_empenho = models.FileField(upload_to=directory_path, null=True)

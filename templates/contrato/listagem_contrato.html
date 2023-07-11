@@ -2,7 +2,6 @@
 
 <div
   style="
-    height: 600px;
     border: 1px solid #d7eccd;
     border-radius: 10px;
     padding: 25px;
@@ -18,6 +17,9 @@
     >
   </div>
   <h1>Consulta de Contratos</h1>
+  {% if messages %} {% for message in messages %}
+  <div class="alert alert-success p-3" role="alert">{{message}}</div>
+  {% endfor %} {% endif %}
   <table class="table table-dark table-striped">
     <thead>
       <tr>
