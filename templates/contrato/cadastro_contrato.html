@@ -83,6 +83,33 @@
       />
     </div>
     <div class="form-outline mb-4">
+      {% if form.anx_contrato.errors %}
+      <div class="alert alert-warning" role="alert">
+        {{form.anx_contrato.errors}}
+      </div>
+      {% endif %}
+      <label class="form-label">Anexo Contrato</label>
+      {{form.anx_contrato}}
+    </div>
+    <div class="form-outline mb-4">
+      {% if form.anx_empenho.errors %}
+      <div class="alert alert-warning" role="alert">
+        {{form.anx_empenho.errors}}
+      </div>
+      {% endif %}
+      <label class="form-label">Anexo Empenho</label>
+      {{form.anx_empenho}}
+    </div>
+    <div class="form-outline mb-4">
+      {% if form.anx_portaria.errors %}
+      <div class="alert alert-warning" role="alert">
+        {{form.anx_portaria.errors}}
+      </div>
+      {% endif %}
+      <label class="form-label">Portaria</label>
+      {{form.anx_portaria}}
+    </div>
+    <div class="form-outline mb-4">
       {% if form.fk_empresa.errors %}
       <div class="alert alert-warning" role="alert">
         {{form.fk_empresa.errors}}

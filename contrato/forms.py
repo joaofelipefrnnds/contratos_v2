@@ -16,7 +16,7 @@ class EmpresaForm(forms.ModelForm):
 class ContratoForm(forms.ModelForm):
     class Meta:
         model = Contrato
-        fields = ["numero_contrato", "numero_processo", "numero_empenho", "objeto", "fk_empresa", "fk_fiscal"]
+        fields = ["numero_contrato", "numero_processo", "numero_empenho", "objeto", "anx_contrato", "anx_empenho", "anx_portaria", "fk_empresa", "fk_fiscal"]
         #widgets = {
             #"anx_empenho": ClearableFileInput(attrs={'multiple': True}),
         #}
@@ -31,7 +31,7 @@ class EmpresaForm(forms.ModelForm):
 class EventoForm(forms.ModelForm):
     class Meta:
         model = NovoEvento
-        fields = ["numero_aditivo", "valor_aditivo", "objeto_aditivo", "fk_contrato", "assinado_em", "anx_empenho"]
+        fields = ["numero_aditivo", "valor_aditivo", "objeto_aditivo", "descricao", "fk_contrato", "assinado_em", "anx"]
         widgets = {
             "assinado_em": DateInput()
         }

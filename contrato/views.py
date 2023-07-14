@@ -21,7 +21,7 @@ def cadastro_contrato(request):
         }
         return render(request, 'contrato/cadastro_contrato.html', context=context)
     else:
-        form = ContratoForm(request.POST)
+        form = ContratoForm(request.POST, request.FILES or None)
         if form.is_valid():
             contrato = form.save()
             form = ContratoForm()
@@ -31,7 +31,7 @@ def cadastro_contrato(request):
         'form': form
             }
         return render(request, 'contrato/cadastro_contrato.html', context=context)
-    
+
 
 def cadastro_empresa(request):
     if not request.user.is_authenticated:
@@ -148,5 +148,3 @@ def update_contrato(request, pk):
     data['form'] = form
     data['cadastro_contrato'] = cadastro_contrato
     return render(request, 'contrato/cadastro_contrato.html', data)
-
-

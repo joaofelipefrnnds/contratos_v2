@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 
 def directory_path(instance, filename):
-    return os.path.join('arquivos/'+instance.__class__.__name__+"/", filename)
+    return os.path.join('arquivos/'+instance.__class__.__name__+"/"+str(instance)+"/", filename)
 
 class Empresa(models.Model):
     ESTADO_CHOICES = (
@@ -49,15 +49,13 @@ class Contrato(models.Model):
     numero_contrato = models.CharField(max_length=11, null=False, blank=False)
     numero_processo = models.CharField(max_length=11, null=False, blank=False)
     numero_empenho = models.CharField(max_length=11, null=False, blank=False)
-    anx_contrato = models.FileField(upload_to=directory_path, null=True)
-    anx_processo = models.FileField(upload_to=directory_path, null=True)
-    anx_empenho = models.FileField(upload_to=directory_path, null=True)
-    anx_portaria = models.FileField(upload_to=directory_path, null=True)
+    anx_contrato = models.FileField(upload_to=directory_path, null=True, blank=True)
+    anx_empenho = models.FileField(upload_to=directory_path, null=True, blank=True)
+    anx_portaria = models.FileField(upload_to=directory_path, null=True, blank=True)
     objeto = models.CharField(max_length=255, null=False, blank=False)
     fk_empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     fk_fiscal = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     cadastrado_em = models.DateField(default=datetime.now, blank=True, null=True)
-    #anx_empenho = models.FileField(upload_to=directory_path, null=True)
     def __str__(self):
         return self.numero_contrato
     
@@ -66,13 +64,14 @@ class NovoEvento(models.Model):
     numero_aditivo = models.CharField(max_length=11, null=False, blank=False)
     valor_aditivo = models.CharField(max_length=255, null=False, blank=False)
     objeto_aditivo = models.CharField(max_length=255, null=False, blank=False)
+    descricao = models.TextField(max_length=255 ,null=False, blank=True)
     fk_contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE)
-    anexo=models.FileField(upload_to=directory_path, null=True, blank=True)
+    anx=models.FileField(upload_to=directory_path, null=True, blank=True)
     assinado_em = models.DateField()
     cadastrado_em = models.DateField(default=datetime.now, blank=True, null=True)
-    anx_empenho = models.FileField(upload_to=directory_path, null=True)
     def __str__(self):
         return self.numero_aditivo
+
 
 class Anexo(models.Model):
     titulo = models.FileField(upload_to=directory_path, null=True)

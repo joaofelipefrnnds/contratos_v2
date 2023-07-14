@@ -44,7 +44,9 @@
         <th>{{ contrato.fk_fiscal }}</th>
         <th>{{ contrato.fk_empresa }}</th>
         <th>
-          <a href="/detalhes_contrato/{{ contrato.id }}">Visualizar</a>
+          <a href="/detalhes_contrato/{{ contrato.id }}" class="btn btn-primary"
+            ><i class="fa-regular fa-eye fa-xl"></i
+          ></a>
         </th>
       </tr>
       {% endfor %} {% else %}
