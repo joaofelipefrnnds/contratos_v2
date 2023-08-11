@@ -1,41 +1,30 @@
-{% extends 'contrato/base.html' %}
-{% load static %}
-{% block content  %}
-     <div style="height:600px; border: 1px solid #D7ECCD; border-radius: 10px; padding:25px; margin-top: 20px" class="container">
-      <h1>Detalhes da Empresa</h1> 
-      <table class="table table-dark table-striped">
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">CNPJ</th>
-            <th scope="col">NOME DA EMPRESA</th>
-            <th scope="col">EMAIL DA EMPRESA</th>
-            <th scope="col">TELEFONE DA EMPRESA</th>
-          </tr>
-        </thead>
-        <tbody>     
-        
-        </tbody>    
-      </table>
-
-      <section class="conteudo">
-        <section class="imagem">
-            <div class="imagem__conteudo">
-                {% if detail_empresa.id == "" or detail_empresa.id == null %}
-                 <h1> teste </h1>
-                {% else %}
-                <img class="imagem__imagem" src="{{detail_empresa.id}}">
-                <h1> teste </h1>
-
-                {% endif %}
-                <div class="imagem__info">
-                    <div class="imagem__texto">
-                        <p class="imagem__titulo">{{fotografia.nome}}</p>
-                        <p class="imagem__descricao">{{fotografia.legenda}}</p>
-                        <p class="imagem__texto">{{fotografia.descricao}}</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-{% endblock  %}
+{% extends 'contrato/base.html' %} {% load static %} {% block content %}
+<div
+  style="
+    height: 600px;
+    border: 1px solid #d7eccd;
+    border-radius: 10px;
+    padding: 25px;
+    margin-top: 20px;
+  "
+  class="container"
+>
+  <h1>Detalhes da Empresa</h1>
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th scope="col">CNPJ</th>
+        <th scope="col">NOME DA EMPRESA</th>
+        <th scope="col">EMAIL DA EMPRESA</th>
+        <th scope="col">TELEFONE DA EMPRESA</th>
+      </tr>
+    </thead>
+    <tbody>
+      <th>{{empresa.cnpj}}</th>
+      <th>{{empresa.nome}}</th>
+      <th>{{empresa.email}}</th>
+      <th>{{empresa.telefone}}</th>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

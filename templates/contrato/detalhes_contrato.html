@@ -76,6 +76,7 @@
         <th scope="col ">
           <button
             class="btn btn-primary"
+            title="Ver descrição"
             data-bs-toggle="modal"
             data-bs-target="#descricaoEventoModal{{evento.id}}"
           >
@@ -83,11 +84,18 @@
           </button>
           <button
             class="btn btn-primary"
+            title="Arquivos"
             data-bs-toggle="modal"
             data-bs-target="#docsEventoModal{{evento.id}}"
           >
             <i class="fa-regular fa-folder fa-xl"></i>
           </button>
+          <a
+            href="/update_evento/{{evento.id}}"
+            class="btn btn-primary"
+            title="Editar"
+            ><i class="fa-solid fa-pen"></i
+          ></a>
         </th>
 
         <!--Modal Descrição-->
@@ -147,7 +155,7 @@
               <div class="modal-body">
                 <ul class="list-group">
                   <li class="list-group-item">
-                    <!-- <a href="/media/{{evento.anx}}" target="_blank">Anexo</a> -->
+                    <a href="/media/{{evento.anx}}" target="_blank">Anexo</a>
                   </li>
                 </ul>
               </div>

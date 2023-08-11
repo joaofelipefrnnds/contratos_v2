@@ -66,7 +66,7 @@ class NovoEvento(models.Model):
     objeto_aditivo = models.CharField(max_length=255, null=False, blank=False)
     descricao = models.TextField(max_length=255 ,null=False, blank=True)
     fk_contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE)
-    anx=models.FileField(upload_to=directory_path, null=True, blank=True)
+    anx = models.FileField(upload_to=directory_path, null=True, blank=True)
     assinado_em = models.DateField()
     cadastrado_em = models.DateField(default=datetime.now, blank=True, null=True)
     def __str__(self):

@@ -10,6 +10,7 @@ def index(request):
         return redirect('login')
     return render(request, 'contrato/index.html')
 
+
 def cadastro_contrato(request):
     if not request.user.is_authenticated:
         messages.error(request, "Usuário não logado")
@@ -26,7 +27,7 @@ def cadastro_contrato(request):
             contrato = form.save()
             form = ContratoForm()
             messages.success(request,'Cadastro realizado')
-            #return redirect('/detalhes_contrato/'+str(contrato.id))
+            return redirect('/detalhes_contrato/'+str(contrato.id))
         context = {
         'form': form
             }
@@ -48,7 +49,7 @@ def cadastro_empresa(request):
         if form.is_valid():
             empresa = form.save()
             form = EmpresaForm()
-        
+            return redirect('/listagem_empresa/')
         context = {
         'form': form
             }
@@ -69,7 +70,7 @@ def cadastro_evento(request):
         if form.is_valid():
             evento = form.save()
             form = EventoForm()
-        
+            return redirect('/detalhes_contrato/'+str(evento.fk_contrato.id))
         context = {
         'form': form
             }
@@ -80,38 +81,44 @@ def listagem_evento(request):
         messages.error(request, "Usuário não logado")
         return redirect('login')
     eventos = NovoEvento.objects.all()
-    dados = {
+    context = {
         'eventos' : eventos
     }
-    return render(request, 'contrato/listagem_evento.html', dados)
+    return render(request, 'contrato/listagem_evento.html', context)
 
 def listagem_contrato(request):
     if not request.user.is_authenticated:
         messages.error(request, "Usuário não logado")
         return redirect('login')
     contratos = Contrato.objects.all()
-    dados = {
+    search_query = request.GET.get('search')  # Obtém o valor do campo de pesquisa
+    if search_query:
+        contratos = contratos.filter(numero_contrato__icontains=search_query)
+    context = {
         'contratos' : contratos
     }
-    return render(request, 'contrato/listagem_contrato.html', dados)
+    return render(request, 'contrato/listagem_contrato.html', context)
 
 def listagem_empresa(request):
     if not request.user.is_authenticated:
         messages.error(request, "Usuário não logado")
         return redirect('login')
     empresas = Empresa.objects.all()
-    dados = {
+    search_query = request.GET.get('search')  # Obtém o valor do campo de pesquisa
+    if search_query:
+        empresas = empresas.filter(nome_empresa__icontains=search_query)
+    context = {
         'empresas' : empresas
     }
-    return render(request, 'contrato/listagem_empresa.html', dados)
+    return render(request, 'contrato/listagem_empresa.html', context)
 
 
 def detalhes_empresa(request, empresa_id):
     empresa = get_object_or_404(Empresa, pk=empresa_id)
-    empresa_detail = {
+    context = {
         'empresa' : empresa
     }
-    return render(request,'contrato/detalhes_empresa.html', empresa_detail)
+    return render(request,'contrato/detalhes_empresa.html', context)
 
 
 def detalhes_contrato(request, contrato_id):
@@ -148,3 +155,19 @@ def update_contrato(request, pk):
     data['form'] = form
     data['cadastro_contrato'] = cadastro_contrato
     return render(request, 'contrato/cadastro_contrato.html', data)
+
+
+def update_evento(request, pk):
+    if not request.user.is_authenticated:
+        messages.error(request, "Usuário não logado")
+        return redirect('login')
+    data = {}
+    evento = get_object_or_404(NovoEvento, pk=pk)
+    form = EventoForm(request.POST or None, request.FILES or None, instance=evento)
+    if form.is_valid():
+            form.save()
+            messages.success(request,'Alteração realizada')
+            return redirect('/detalhes_contrato/'+str(evento.fk_contrato.id))
+    data['form'] = form
+    data['evento'] = evento
+    return render(request, 'contrato/cadastro_evento.html', data)

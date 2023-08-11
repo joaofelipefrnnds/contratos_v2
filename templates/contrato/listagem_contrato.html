@@ -20,6 +20,19 @@
   {% if messages %} {% for message in messages %}
   <div class="alert alert-success p-3" role="alert">{{message}}</div>
   {% endfor %} {% endif %}
+  <form method="GET" action="{% url 'listagem_contrato' %}">
+    <div class="input-group col-4 mb-3">
+      <input
+        type="text"
+        class="form-control"
+        name="search"
+        placeholder="Pesquisar por número do contrato"
+      />
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">Pesquisar</button>
+      </div>
+    </div>
+  </form>
   <table class="table table-dark table-striped">
     <thead>
       <tr>

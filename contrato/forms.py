@@ -31,7 +31,7 @@ class EmpresaForm(forms.ModelForm):
 class EventoForm(forms.ModelForm):
     class Meta:
         model = NovoEvento
-        fields = ["numero_aditivo", "valor_aditivo", "objeto_aditivo", "descricao", "fk_contrato", "assinado_em", "anx"]
+        fields = ["numero_aditivo", "valor_aditivo", "objeto_aditivo", "descricao", "anx", "fk_contrato", "assinado_em"]
         widgets = {
             "assinado_em": DateInput()
         }
