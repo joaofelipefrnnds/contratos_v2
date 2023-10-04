@@ -1,0 +1,64 @@
+{% extends 'contrato/base.html' %} {% load static %} {% block content %}
+{% if messages %} 
+{% for message in messages %}
+<div style="border-radius: 10px; padding: 25px; margin-top: 20px; text-align:center"  class="container alert-success p-3 col-2" role="alert">{{message}}</div>
+{% endfor %} {% endif %}
+<div style="height: 600px; border: 1px solid #d7eccd; border-radius: 10px; padding: 25px; margin-top: 20px;" class="container">
+  <h1>Editar empresa da Empresa</h1>
+ 
+  <form action="#" method="POST">
+    {% csrf_token %}
+    <div class="form-outline mb-4 col-12">
+      {% if form.cnpj_empresa.errors %}
+      <div class="alert alert-warning" role="alert">
+        {{form.cnpj_empresa.errors}}
+      </div>
+      {% endif %}
+      <label class="form-label">CNPJ</label>
+      <input
+        type="text" class="form-control" name="cnpj_empresa" id="cnpj_empresa" value="{{empresa.cnpj_empresa}}"/>
+    </div>
+    <div class="form-outline mb-4 col-12">
+      {% if form.nome_empresa.errors %}
+      <div class="alert alert-warning" role="alert">
+        {{form.nome_empresa.errors}}
+      </div>
+      {% endif %}
+      <label class="form-label">Nome da Empresa</label>
+      <input  type="text" class="form-control" name="nome_empresa" id="nome_empresa"  value="{{empresa.nome_empresa}}"/>
+    </div>
+    <div class="form-outline mb-4 col-12">
+      {% if form.email_empresa.errors %}
+      <div class="alert alert-warning" role="alert">
+        {{form.email_empresa.errors}}
+      </div>
+      {% endif %}
+      <label class="form-label">Email da Empresa</label>
+      <input type="email" class="form-control" name="email_empresa" id="email_empresa" value="{{empresa.email_empresa}}"/>
+    </div>
+    <div class="form-outline mb-4 col-12">
+      {% if form.telefone_empresa.errors %}
+      <div class="alert alert-warning" role="alert">
+        {{form.telefone_empresa.errors}}
+      </div>
+      {% endif %}
+      <label class="form-label">Telefone da Empresa</label>
+      <input  type="tel"  class="form-control" name="telefone_empresa" id="telefone_empresa" value="{{empresa.telefone_empresa}}"/>
+    </div>
+    <div class="form-outline mb-4 col-12">
+      {% if form.estado.errors %}
+      <div class="alert alert-warning" role="alert">{{form.estado.errors}}</div>
+      {% endif %}
+      <label class="form-label">Estado</label>
+      <select class="form-select mb-4 col-6" name="estado" id="estado">
+        {% for estado in form.estado %}
+        <option>{{estado}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button class="btn btn-success" type="submit" name="_save">
+      Cadastrar
+    </button>
+  </form>
+</div>
+{% endblock %}

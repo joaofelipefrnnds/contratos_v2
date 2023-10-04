@@ -15,7 +15,8 @@ urlpatterns = [
     path('detalhes_contrato/<int:contrato_id>', detalhes_contrato, name='detalhes_contrato'),
     path('detalhes_evento/<int:evento_id>', detalhes_evento, name='detalhes_evento'),
     path('update_contrato/<int:pk>', update_contrato, name='update_contrato'),
-    path('update_evento/<int:pk>', update_evento, name='update_evento')
-   # path('download/<int:pk>/', download, name='download'),
+    path('update_evento/<int:pk>', update_evento, name='update_evento'),
+    path('update_empresa/<int:pk>', update_empresa, name='update_empresa')
+    #path('download/<int:pk>/', download, name='download'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

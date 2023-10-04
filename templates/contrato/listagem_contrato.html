@@ -1,21 +1,7 @@
 {% extends 'contrato/base.html' %} {% load static %} {% block content %}
 
-<div
-  style="
-    border: 1px solid #d7eccd;
-    border-radius: 10px;
-    padding: 25px;
-    margin-top: 20px;
-  "
-  class="container"
->
-  <div>
-    <a href="{% url 'cadastro_contrato' %}"
-      ><button class="btn btn-success">
-        <i class="fas fa-plus"></i> Cadastrar
-      </button></a
-    >
-  </div>
+<div style="border: 1px solid #d7eccd; border-radius: 10px; padding: 25px; margin-top: 20px;" class="container">
+ 
   <h1>Consulta de Contratos</h1>
   {% if messages %} {% for message in messages %}
   <div class="alert alert-success p-3" role="alert">{{message}}</div>
@@ -30,8 +16,9 @@
       />
       <div class="input-group-append">
         <button class="btn btn-primary" type="submit">Pesquisar</button>
-      </div>
+      </div> 
     </div>
+    
   </form>
   <table class="table table-dark table-striped">
     <thead>

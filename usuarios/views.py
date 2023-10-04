@@ -3,7 +3,7 @@ from usuarios.forms import LoginForms, CadastroUsuarioForms
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib import messages
-
+from django.core.paginator import Paginator 
 def login(request):
     form = LoginForms()
     if request.method == 'POST':
@@ -42,8 +42,11 @@ def cadastro_usuario(request):
             email = form["email"].value()#caso NÃO, guarda os campos da tabela nas variáveis
             senha = form["senha_1"].value()#caso NÃO, guarda os campos da tabela nas variáveis            
             if User.objects.filter(username=nome).exists(): #válida se já existe usuário com o mesmo nome
-                 messages.error(request, "Usuário já existe na base de dados!")
+                 messages.error(request, "Já existe um usuário com esse NOME DE USUÁRIO na base de dados!")
                  return redirect('cadastro_usuario') #caso SIM, guarda os campos da tabela nas variáveis
+            if User.objects.filter(email=email).exists(): #válida se já existe usuário com o mesmo email
+                messages.error(request, "Já existe um usuário com esse EMAIL na base de dados!")
+                return redirect('cadastro_usuario') #caso SIM, guarda os campos da tabela nas variáveis
             usuario = User.objects.create_user( #CRIA DE FATO OS USUÁRIO DE ACORDO COM AS VARIÁVEIS ANTERIOR
                 username=nome,
                 first_name=first,
@@ -66,7 +69,8 @@ def listagem_usuario(request):
         messages.error(request, "Usuário não logado")
         return redirect('login')
     usuarios = User.objects.all()
-    dados = {
-        'usuarios' : usuarios
-    }
-    return render(request, 'usuarios/listagem_usuario.html', dados)
+    paginator = Paginator(usuarios, 2) # Show 25 contacts per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'usuarios/listagem_usuario.html', context = {'usuarios' : usuarios,'page_obj': page_obj})

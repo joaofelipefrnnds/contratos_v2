@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'contrato.apps.ContratoConfig',
     'usuarios.apps.UsuariosConfig'
     
@@ -87,15 +88,24 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'contato1',
+#        'USER': 'postgres',
+#        'PASSWORD': 'Root1q2w3e4r5t',
+#        'HOST': 'localhost'
+#    }
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'contrato',
-        'USER': 'postgres',
-        'PASSWORD': 'dpe123',
-        'HOST': '127.0.0.1'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 
 # Password validation

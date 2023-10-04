@@ -41,7 +41,10 @@ class Empresa(models.Model):
     email_empresa = models.EmailField(null=False, blank=False)
     telefone_empresa = models.CharField(max_length=11, null=False, blank=False)
     estado = models.CharField(max_length=2, choices=ESTADO_CHOICES, null=True)
-    cadastrado_em = models.DateField(default=datetime.now, blank=True, null=True)
+    cadastrado_em = models.DateField(auto_now_add=True, blank=True, null=True)
+    alterado_em = models.DateField(auto_now=True, blank=True, null=True)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    ativo = models.BooleanField(default=True, null=True)
     def __str__(self):
         return self.nome_empresa
 
@@ -55,7 +58,8 @@ class Contrato(models.Model):
     objeto = models.CharField(max_length=255, null=False, blank=False)
     fk_empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     fk_fiscal = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    cadastrado_em = models.DateField(default=datetime.now, blank=True, null=True)
+    cadastrado_em = models.DateField(auto_now_add=True, blank=True, null=True)
+    ativo = models.BooleanField(default=True, null=True)
     def __str__(self):
         return self.numero_contrato
     
@@ -68,7 +72,8 @@ class NovoEvento(models.Model):
     fk_contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE)
     anx = models.FileField(upload_to=directory_path, null=True, blank=True)
     assinado_em = models.DateField()
-    cadastrado_em = models.DateField(default=datetime.now, blank=True, null=True)
+    cadastrado_em = models.DateField(auto_now_add=True, blank=True, null=True)
+    ativo = models.BooleanField(default=True, null=True)
     def __str__(self):
         return self.numero_aditivo
 

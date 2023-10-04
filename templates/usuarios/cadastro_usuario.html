@@ -1,16 +1,16 @@
 {% extends 'contrato/base.html' %}
 {% load static %}
 {% block content  %}
+      {% if messages %} 
+      {% for message in messages %}
+      <div style="border-radius: 10px; padding: 25px; margin-top: 20px; text-align:center"  class="container alert-success p-3 col-2" role="alert">{{message}}</div>
+      {% endfor %} {% endif %}
+
      <div style="height:800px; border: 1px solid #D7ECCD; border-radius: 10px; padding:25px; margin-top: 20px" class="container">
       <div style="display:flex; justify-content:flex-end">
         <a href="{% url 'listagem_contrato' %}"><button class="btn btn-primary" style="display:row" ><i class="fas fa-circle-plus"></i> Consultar Contratos</button></a>
       </div>
       <h1 style="margin-bottom:30px"> <i class="fas fa-user-gear"></i> Cadastrar Novo Usuário</h1>
-      {% for message in messages%}
-        <div class="alert alert-warning">
-            <p id="messages" >{{message}}</p>
-        </div>
-      {% endfor %}
       <form action="{% url 'cadastro_usuario' %}" method="POST" >
         {% csrf_token %}
         {% for field in form.visible_fields %}

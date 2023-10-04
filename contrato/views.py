@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from contrato.models import Empresa, Contrato
 from django.contrib import messages
 from .forms import *
+from django.core.paginator import Paginator 
 
 def index(request):
     if not request.user.is_authenticated:
@@ -80,7 +81,9 @@ def listagem_evento(request):
     if not request.user.is_authenticated:
         messages.error(request, "Usuário não logado")
         return redirect('login')
-    eventos = NovoEvento.objects.all()
+    eventos = NovoEvento.objects.filter(
+        ativo=True
+    )
     context = {
         'eventos' : eventos
     }
@@ -90,7 +93,12 @@ def listagem_contrato(request):
     if not request.user.is_authenticated:
         messages.error(request, "Usuário não logado")
         return redirect('login')
-    contratos = Contrato.objects.all()
+    contratos = Contrato.objects.filter(
+        ativo=True,
+        fk_fiscal=request.user
+        #author=request.user,
+        
+    )
     search_query = request.GET.get('search')  # Obtém o valor do campo de pesquisa
     if search_query:
         contratos = contratos.filter(numero_contrato__icontains=search_query)
@@ -103,14 +111,16 @@ def listagem_empresa(request):
     if not request.user.is_authenticated:
         messages.error(request, "Usuário não logado")
         return redirect('login')
-    empresas = Empresa.objects.all()
+    empresas = Empresa.objects.filter(
+       # ativo=True
+    )
+    paginator = Paginator(empresas, 4) #mostra 3 empresas por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     search_query = request.GET.get('search')  # Obtém o valor do campo de pesquisa
     if search_query:
         empresas = empresas.filter(nome_empresa__icontains=search_query)
-    context = {
-        'empresas' : empresas
-    }
-    return render(request, 'contrato/listagem_empresa.html', context)
+    return render(request, 'contrato/listagem_empresa.html', context = {'empresas': empresas, 'page_obj':page_obj} )
 
 
 def detalhes_empresa(request, empresa_id):
@@ -156,6 +166,20 @@ def update_contrato(request, pk):
     data['cadastro_contrato'] = cadastro_contrato
     return render(request, 'contrato/cadastro_contrato.html', data)
 
+def update_empresa(request, pk):
+    if not request.user.is_authenticated:
+        messages.error(request, "Usuário não logado")
+        return redirect('login')
+    data = {}
+    cadastro_empresa = Empresa.objects.get(pk=pk)
+    form = EmpresaForm(request.POST or None, request.FILES or None, instance=cadastro_empresa)
+    if form.is_valid():
+            form.save()
+            messages.success(request,'Alteração realizada')
+            return redirect('listagem_empresa')
+    data['form'] = form
+    data['cadastro_empresa'] = cadastro_empresa
+    return render(request, 'contrato/update_empresa.html', data)
 
 def update_evento(request, pk):
     if not request.user.is_authenticated:
