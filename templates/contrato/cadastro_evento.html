@@ -1,19 +1,94 @@
-{% extends 'contrato/base.html' %}
-{% load static %}
-{% block content  %}
-     <div style="height:750px; border: 1px solid #D7ECCD; border-radius: 10px; padding:25px; margin-top: 20px" class="container">
-      <h1>Cadastro de Nova Empresa</h1> 
-      {% for message in messages%}
-        <div class="alert alert-warning">
-            <p id="messages" >{{message}}</p>
-        </div>
-      {% endfor %}
-      
-      <form action="{% url 'cadastro_evento' %}" method="POST" >
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-success" type="submit">Cadastrar</button>
-      
-      </form>
-     </div>
-{% endblock  %}
+{% extends 'contrato/base.html' %} {% load static %} {% block content %}
+<div style="border: 1px solid #d7eccd; border-radius: 10px; padding: 25px; margin-top: 20px;" class="container">
+
+  <h1>Cadastro de Novo Evento</h1>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}{% if messages %} {% for message in messages %}
+    <div class="alert alert-success p-3" role="alert">{{message}}</div>
+    {% endfor %} {% endif %}
+    <div class="form-outline mb-4 col-12">
+      {% if form.numero_aditivo.errors %}
+      <div class="alert alert-warning" role="alert">
+        {{form.numero_aditivo.errors}}
+      </div>
+      {% endif %}
+      <label class="form-label">Número Aditivo</label>
+      <input type="text" class="form-control" name="numero_aditivo" id="numero_aditivo" value="{{evento.numero_aditivo}}"/>
+    </div>
+    <div class="form-outline mb-4 col-12">
+      {% if form.valor_aditivo.errors %}
+      <div class="alert alert-warning" role="alert">
+        {{form.valor_aditivo.errors}}
+      </div>
+      {% endif %}
+      <label class="form-label">Valor Aditivo</label>
+      <input  type="text" class="form-control" name="valor_aditivo" id="valor_aditivo" value="{{evento.valor_aditivo}}"/>
+    </div>
+    <div class="form-outline mb-4 col-12">
+      {% if form.objeto_aditivo.errors %}
+      <div class="alert alert-warning" role="alert">
+        {{form.objeto_aditivo.errors}}
+      </div>
+      {% endif %}
+      <label class="form-label">Objeto Aditivo</label>
+      <input type="text" class="form-control" name="objeto_aditivo" id="objeto_aditivo" value="{{evento.objeto_aditivo}}"/>
+    </div>
+
+    <div class="form-outline mb-4 col-12">
+      {% if form.descricao.errors %}
+      <div class="alert alert-warning" role="alert">
+        {{form.descricao.errors}}
+      </div>
+      {% endif %}
+      <label class="form-label">Descrição</label>
+      <textarea class="form-control" name="descricao" id="descricao" maxlength="255" value="{{evento.descricao}}">
+          {{evento.descricao}}
+      </textarea >
+    </div>
+
+    <div class="mb-4 col-12">
+      {% if form.fk_contrato.errors %}
+      <div class="alert alert-warning" role="alert">
+        {{form.fk_contrato.errors}}
+      </div>
+      {% endif %}
+      <label class="form-label">Contrato</label>
+      {% if evento.fk_contrato %}
+      <p>{{evento.fk_contrato}}</p>
+      {% endif %}
+      <select class="form-select" name="fk_contrato" id="id_fk_contrato">
+        {% for fk_contrato in form.fk_contrato %}
+        <option value="fk_contrato.id">{{fk_contrato}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-4 col-6">
+      {% if form.anx.errors %}
+      <div class="alert alert-warning" role="alert">{{form.anx.errors}}</div>
+      {% endif %}
+      <label class="form-label">Anexo</label>
+      <input type="file" class="form-control" name="anx" id="anx" value="{{evento.anx}}"/>
+      {% if evento.anx %}
+      <p>Atualmente: <a href="/media/{{evento.anx}}">{{evento.anx}} </a></p>
+      {% endif %}
+    </div>
+
+    <div class="mb-4 col-6">
+      {% if form.assinado_em.errors %}
+      <div class="alert alert-warning" role="alert">
+        {{form.assinado_em.errors}}
+      </div>
+      {% endif %}
+      <label class="form-label" for="assinado_em">Assinado Em</label>
+      {% if evento.assinado_em %}
+      <p>Atualmente: {{evento.assinado_em}}</p>
+      {% endif %}
+      <input type="date" class="form-control" name="assinado_em" id="assinado_em" value="{{evento.assinado_em}}"/>
+    </div>
+    <button class="btn btn-success" type="submit" name="_save">
+      Cadastrar
+    </button>
+  </form>
+</div>
+{% endblock %}

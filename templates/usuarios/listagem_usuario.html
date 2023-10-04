@@ -1,40 +1,41 @@
-{% extends 'contrato/base.html' %}
-{% load static %}
-{% block content  %}
-     
-      <div style="height:600px; border: 1px solid #D7ECCD; border-radius: 10px; padding:25px; margin-top: 20px" class="container">
-      <div>
-        <a href="{% url 'cadastro_usuario' %}"><button class="btn btn-success"><i class="fas fa-plus"></i> Cadastrar</button></a>
-      </div>
-      <h1>Consulta de Usuários</h1> 
-      <table class="table table-dark table-striped">
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">NOME</th>
-            <th scope="col">PRIMEIRO NOME</th>
-            <th scope="col">SEGUNDO NOME</th>
-            <th scope="col">EMAIL</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% if usuarios %}
-          {% for usuario in usuarios %}
-          <tr class="lista">
-            <th>{{ usuario.id }}</th>
-            <th>{{ usuario.username }}</th>
-            <th>{{ usuario.first_name }}</th>
-            <th>{{ usuario.last_name }}</th>
-            <th>{{ usuario.email }}</th>
-          </tr>
-          {% endfor %}
-          {% else  %}
-          <h5>Sem registro de dados</h5>
-          {% endif %}
-        </tbody>
-      </table>
-      
-     
+{% extends 'contrato/base.html' %} {% load static %} {% block content %}
 
-    </div>
-{% endblock  %}
+<div style=" height: 600px; border: 1px solid #d7eccd; border-radius: 10px; padding: 25px; margin-top: 20px;" class="container">
+  
+  <div>
+    <a href="{% url 'cadastro_usuario' %}">
+      <button class="btn btn-success">
+         <i class="fas fa-plus"></i> Cadastrar
+      </button>
+    </a>
+  </div>
+
+  <h1>Consulta de Usuários</h1>
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th class="col-1">ID</th>
+        <th class="col-2">NOME</th>
+        <th class="col-2">PRIMEIRO NOME</th>
+        <th class="col-2">ÚLTIMO NOME</th>
+        <th class="col-3">EMAIL</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if usuarios %} {% for usuarios in page_obj %}
+      <tr class="lista">
+        <th class="col-1">{{ usuarios.id }}</th>
+        <th class="col-2">{{ usuarios.username }}</th>
+        <th class="col-2">{{ usuarios.first_name }}</th>
+        <th class="col-2">{{ usuarios.last_name }}</th>
+        <th class="col-3">{{ usuarios.email }}</th>
+      </tr>
+      {% endfor %} {% else %}
+      <h5>Sem registro de dados</h5>
+      {% endif %}
+    </tbody>
+  </table>
+  {% include 'contrato/partials/paginator.html' %}
+</div>
+</div>
+{% endblock %}

@@ -1,53 +1,88 @@
-<nav style="height:100px; background-image: linear-gradient(to bottom, #95ce99, #a2d5a5, #afdbb1, #bce2be, #c9e8ca, #cbedd9, #d0f1e5, #d9f5f0, #e2f7fa, #eef9ff, #f9fbff, #ffffff); color:black" class="navbar navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand text-dark" href="#">SISTEMA DE CONTRATOS</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active text-dark font-weight-bold " aria-current="page" href="{% url 'index' %}">Home</a>
-          </li>
-        
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Contrato
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{% url 'listagem_contrato' %}">Consultar</a></li>
-              <li><a class="dropdown-item" href="{% url 'cadastro_contrato' %}">Cadastrar</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Usuário
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{% url 'listagem_usuario' %}">Consultar</a></li>
-              <li><a class="dropdown-item" href="{% url 'cadastro_usuario' %}">Cadastrar</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Empresa
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{% url 'listagem_empresa' %}">Consultar</a></li>
-              <li><a class="dropdown-item" href="{% url 'cadastro_empresa' %}">Cadastrar</a></li>
-            </ul>
-          </li>
+<nav style="
+    height: 100px;
+    background-image: linear-gradient(
+      to bottom,
+      #95ce99,
+      #a2d5a5,
+      #afdbb1,
+      #bce2be,
+      #c9e8ca,
+      #cbedd9,
+      #d0f1e5,
+      #d9f5f0,
+      #e2f7fa,
+      #eef9ff,
+      #f9fbff,
+      #ffffff
+    );
+    color: black;
+  "
 
-         
-           
-        </ul>      
-        <a class="nav-link active text-dark font-weight-bold " aria-current="page" href="{% url 'admin:index' %}"><button class="btn btn-primary" >ADMIN DJANGO</button></a>
-        <a class="nav-link active text-dark font-weight-bold " aria-current="page" href="{% url 'logout' %}"><button class="btn btn-danger" >LOGOUT</button></a>
-         
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
+  class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand text-dark" href="#">SISTEMA DE CONTRATOS</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active text-dark font-weight-bold" aria-current="page" href="{% url 'index' %}">Home</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Contrato
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" href="{% url 'listagem_contrato' %}">Consultar</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'cadastro_contrato' %}">Cadastrar</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Usuário</a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" href="{% url 'listagem_usuario' %}">Consultar</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'cadastro_usuario' %}">Cadastrar</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Empresa
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" href="{% url 'listagem_empresa' %}">Consultar</a>
+            </li>
+
+            <li>
+              <a class="dropdown-item" href="{% url 'cadastro_empresa' %}">Cadastrar</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      
+      <!-- <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-outline-success me-2" type="submit">Search</button>
+      </form>
+      -->
+      <div class="d-flex me-2">  
+        <a class="nav-link active text-dark font-weight-bold me-2" aria-current="page" href="{% url 'admin:index' %}">
+          <button class="btn btn-primary">ADMIN DJANGO</button>
+        </a>
+        <a class="nav-link active text-dark font-weight-bold me-2" aria-current="page" href="{% url 'logout' %}">
+          <button class="btn btn-danger">LOGOUT</button>
+        </a>
+      <div>  
     </div>
-  </nav>
+  </div>
+</nav>

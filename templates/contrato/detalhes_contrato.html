@@ -1,0 +1,230 @@
+{% extends 'contrato/base.html' %} {% load static %} {% block content %}
+<div
+  style="
+    border: 1px solid #d7eccd;
+    border-radius: 10px;
+    padding: 25px;
+    margin-top: 20px;
+  "
+  class="container"
+>
+  <div class="card p-2 mb-3">
+    <div class="container mb-0 mt-2">
+      <div class="row justify-content-end">
+        <div class="col-11"><h1>Detalhes do Contrato</h1></div>
+        <div class="col-1">
+          <a class="text-dark" href="/update_contrato/{{contrato.id}}" title="Editar">
+            <i class="fa-solid fa-pen"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <table class="table table-bordered table-sm">
+      <thead>
+        <tr class="text-uppercase">
+          <th scope="col">Número do Contrato: {{contrato.numero_contrato}}</th>
+          <th scope="col">Número do Processo: {{contrato.numero_processo}}</th>
+          <th scope="col">Número do Empenho: {{contrato.numero_empenho}}</th>
+        </tr>
+      </thead>
+      <thead>
+        <tr class="text-uppercase">
+          <th scope="col">Objeto: {{contrato.objeto}}</th>
+          <th scope="col">Fiscal: {{contrato.fk_fiscal}}</th>
+          <th scope="col">Empresa: {{contrato.fk_empresa}}</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+  <hr class="mx" />
+
+  <div>
+    <div class="container mb-0 mt-2">
+      <div class="row justify-content-end">
+        <div class="col-11"><h3>Eventos</h3></div>
+        <div class="col-1">
+          <a class="text-dark" href="/cadastro_evento" title="Novo Evento"
+            ><i class="fa-solid fa-plus fa-xl"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Número Aditivo</th>
+          <th scope="col">Valor Aditivo</th>
+          <th scope="col">Objeto Aditivo</th>
+          <th scope="col">Assinado Em</th>
+          <th scope="col">Cadastrado Em</th>
+          <th scope="col">Anexos</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for evento in eventos %}
+        <th scope="col">{{evento.numero_aditivo}}</th>
+        <th scope="col">{{evento.valor_aditivo}}</th>
+        <th scope="col">{{evento.objeto_aditivo}}</th>
+        <th scope="col">{{evento.assinado_em}}</th>
+        <th scope="col">{{evento.cadastrado_em}}</th>
+        <th scope="col ">
+          <button
+            class="btn btn-primary"
+            title="Ver descrição"
+            data-bs-toggle="modal"
+            data-bs-target="#descricaoEventoModal{{evento.id}}"
+          >
+            <i class="fa-regular fa-eye fa-xl"></i>
+          </button>
+          <button
+            class="btn btn-primary"
+            title="Arquivos"
+            data-bs-toggle="modal"
+            data-bs-target="#docsEventoModal{{evento.id}}"
+          >
+            <i class="fa-regular fa-folder fa-xl"></i>
+          </button>
+          <a
+            href="/update_evento/{{evento.id}}"
+            class="btn btn-primary"
+            title="Editar"
+            ><i class="fa-solid fa-pen"></i
+          ></a>
+        </th>
+
+        <!--Modal Descrição-->
+        <div
+          class="modal fade"
+          id="descricaoEventoModal{{evento.id}}"
+          tabindex="-1"
+          aria-labelledby="descricaoEventoModalLabel{{evento.id}}"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1
+                  class="modal-title fs-5"
+                  id="descricaoEventoModalLabel{{evento.id}}"
+                >
+                  Descrição
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">{{evento.descricao}}</div>
+              <div class="modal-footer"></div>
+            </div>
+          </div>
+        </div>
+
+        <!--Modal Documentos-->
+        <div
+          class="modal fade"
+          id="docsEventoModal{{evento.id}}"
+          tabindex="-1"
+          aria-labelledby="docsEventoModalLabel{{evento.id}}"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1
+                  class="modal-title fs-5"
+                  id="docsEventoModalLabel{{evento.id}}"
+                >
+                  Anexos do Evento
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <a href="/media/{{evento.anx}}" target="_blank">Anexo</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="modal-footer"></div>
+            </div>
+          </div>
+        </div>
+      </tbody>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}
+<!-- 
+<th>
+  <div
+    class="modal fade"
+    id="docsEventoModal"
+    tabindex="-1"
+    aria-labelledby="docsEventoModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="docsEventoModalLabel">
+            Anexos do Evento
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <a href="/media/{{contrato.anx_contrato}}" target="_blank"
+                >Anexo</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div
+    class="modal fade"
+    id="descricaoEventoModal"
+    tabindex="-1"
+    aria-labelledby="descricaoEventoModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="descricaoEventoModalLabel">
+            Descrição
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">{{evento.numero_aditivo}}</div>
+        <div class="modal-footer"></div>
+      </div>
+    </div>
+  </div> -->

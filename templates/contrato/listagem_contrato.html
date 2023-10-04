@@ -1,44 +1,58 @@
-{% extends 'contrato/base.html' %}
-{% load static %}
-{% block content  %}
-     
-     <div style="height:600px; border: 1px solid #D7ECCD; border-radius: 10px; padding:25px; margin-top: 20px" class="container">
-      <div>
-        <a href="{% url 'cadastro_contrato' %}"><button class="btn btn-success"><i class="fas fa-plus"></i> Cadastrar</button></a>
-      </div>
-      <h1>Consulta de Contratos</h1> 
-      <table class="table table-dark table-striped">
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">CONTRATO</th>
-            <th scope="col">PROCESSO</th>
-            <th scope="col">EMPENHO</th>
-            <th scope="col">OBJETO</th>
-            <th scope="col">FISCAL</th>
-            <th scope="col">DATA DO REGISTRO</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% if contratos %}
-          {% for contrato in contratos %}
-          <tr class="lista">
-            <th>{{ contrato.id }}</th>
-            <th>{{ contrato.numero_contrato }}</th>
-            <th>{{ contrato.numero_processo }}</th>
-            <th>{{ contrato.objeto }}</th>
-            <th>{{ contrato.fk_empresa }}</th>
-            <th>{{ contrato.fk_fiscal }}</th>
-            <th>{{ contrato.cadastrado_em }}</th>
-          </tr>
-          {% endfor %}
-          {% else  %}
-          <h5>Sem registro de dados</h5>
-          {% endif %}
-        </tbody>
-      </table>
-      
-     
+{% extends 'contrato/base.html' %} {% load static %} {% block content %}
 
+<div style="border: 1px solid #d7eccd; border-radius: 10px; padding: 25px; margin-top: 20px;" class="container">
+ 
+  <h1>Consulta de Contratos</h1>
+  {% if messages %} {% for message in messages %}
+  <div class="alert alert-success p-3" role="alert">{{message}}</div>
+  {% endfor %} {% endif %}
+  <form method="GET" action="{% url 'listagem_contrato' %}">
+    <div class="input-group col-4 mb-3">
+      <input
+        type="text"
+        class="form-control"
+        name="search"
+        placeholder="Pesquisar por número do contrato"
+      />
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">Pesquisar</button>
+      </div> 
     </div>
-{% endblock  %}
+    
+  </form>
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">CONTRATO</th>
+        <th scope="col">PROCESSO</th>
+        <th scope="col">EMPENHO</th>
+        <th scope="col">OBJETO</th>
+        <th scope="col">FISCAL</th>
+        <th scope="col">EMPRESA</th>
+        <th scope="col">VISUALIZAR</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if contratos %} {% for contrato in contratos %}
+      <tr class="lista">
+        <th>{{ contrato.id }}</th>
+        <th>{{ contrato.numero_contrato }}</th>
+        <th>{{ contrato.numero_processo }}</th>
+        <th>{{ contrato.numero_empenho }}</th>
+        <th>{{ contrato.objeto }}</th>
+        <th>{{ contrato.fk_fiscal }}</th>
+        <th>{{ contrato.fk_empresa }}</th>
+        <th>
+          <a href="/detalhes_contrato/{{ contrato.id }}" class="btn btn-primary"
+            ><i class="fa-regular fa-eye fa-xl"></i
+          ></a>
+        </th>
+      </tr>
+      {% endfor %} {% else %}
+      <h5>Sem registro de dados</h5>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
