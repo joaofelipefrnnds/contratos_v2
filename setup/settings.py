@@ -18,6 +18,15 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+#INTEGRAÇÃO COM O SENTRY
+import sentry_sdk
+
+sentry_sdk.init(
+    dsn="http://4da092fba2fb10d49bfad601309101f3@192.10.10.79:9000/4",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    traces_sample_rate=1.0,
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
