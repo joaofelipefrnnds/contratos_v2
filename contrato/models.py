@@ -53,7 +53,12 @@ class Empresa(models.Model):
     def save(self, *args, **kwargs):
         super(Empresa, self).save(*args, **kwargs)
 
-        data = {'empresa': self.nome_empresa}
+        data = {'empresa': self.nome_empresa,
+                'cnpj': self.cnpj_empresa,
+                'email': self.email_empresa,
+                'telefone': self.telefone_empresa,
+                'estado': self.estado,
+                }
         plain_text = render_to_string('contrato/emails/nova_empresa.txt', data)
         html_email = render_to_string('contrato/emails/email_nova_empresa.html', data)
         send_mail(
