@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 import os
+from django.core.mail import send_mail, mail_admins
+from django.template.loader import render_to_string
 
 def directory_path(instance, filename):
     return os.path.join('arquivos/'+instance.__class__.__name__+"/"+str(instance)+"/", filename)
@@ -47,6 +49,28 @@ class Empresa(models.Model):
     ativo = models.BooleanField(default=True, null=True)
     def __str__(self):
         return self.nome_empresa
+
+    def save(self, *args, **kwargs):
+        super(Empresa, self).save(*args, **kwargs)
+
+        data = {'empresa': self.nome_empresa}
+        plain_text = render_to_string('contrato/emails/nova_empresa.txt', data)
+        html_email = render_to_string('contrato/emails/email_nova_empresa.html', data)
+        send_mail(
+            plain_text,
+            "A empresa %s foi cadastrada" % self.nome_empresa,
+            "joao.felipe@defensoria.ap.def.br",
+            ["joao.felipe@defensoria.ap.def.br"],
+            html_message=html_email,
+            fail_silently=True,
+        )
+        mail_admins(
+            'SCC - NOVA EMPRESA CADASTRADA',
+            plain_text,
+            html_message=html_email,
+            fail_silently=False,
+        )
+
 
 class Contrato(models.Model):
     numero_contrato = models.CharField(max_length=11, null=False, blank=False)
