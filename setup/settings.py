@@ -39,6 +39,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ADMINS = [('joao.fernandes', 'coordti@defensoria.ap.def.br'),]
 
 # Application definition
 
@@ -174,3 +175,20 @@ CRISPY_TEMPLATE_PACK = 'Bootstrap4'
 USE_DJANGO_JQUERY = True
 
 DATE_FORMAT = "d-m-Y"
+
+
+#EMAIL
+#if DEBUG:
+#    EMAIL_BACKEND = 'django.core.email.backends.console.EmailBackend'
+#else:
+#    EMAIL_BACKEND = 'django.core.email.backends.smtp.EmailBackend'
+
+#
+# E-MAIL
+# configuracoes opcionais
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='mail.intelimail.com.br'
+EMAIL_PORT=587
+EMAIL_HOST_USER='joao.felipe@defensoria.ap.def.br'
+EMAIL_HOST_PASSWORD='Joao1711;'
+EMAIL_USE_TLS=True
