@@ -40,7 +40,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 ADMINS = [('joao.fernandes', 'coordti@defensoria.ap.def.br'),]
-
+#ADMINS = [('joao.fernandes', 'coordti@defensoria.ap.def.br'),]
 # Application definition
 
 INSTALLED_APPS = [
